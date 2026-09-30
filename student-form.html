@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Student Form</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container small">
+    <div class="card form-card">
+        <h1 th:text="${pageTitle}">Add Student</h1>
+        <p>Enter the student details. The data will be saved in MySQL.</p>
+
+        <form th:action="@{/students/save}" th:object="${student}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <label>Name</label>
+            <input type="text" th:field="*{name}" placeholder="Full name">
+            <div class="error" th:errors="*{name}"></div>
+
+            <label>Email</label>
+            <input type="email" th:field="*{email}" placeholder="student@example.com">
+            <div class="error" th:errors="*{email}"></div>
+
+            <label>Course</label>
+            <input type="text" th:field="*{course}" placeholder="B.Tech CSE">
+            <div class="error" th:errors="*{course}"></div>
+
+            <label>Phone</label>
+            <input type="text" th:field="*{phone}" placeholder="9876543210">
+
+            <div class="form-actions">
+                <a class="btn secondary" href="/students">Cancel</a>
+                <button class="btn" type="submit">Save Student</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

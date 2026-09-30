@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Management</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div>
+            <h1>Student Management System</h1>
+            <p>Spring MVC + JDBC + MySQL</p>
+        </div>
+        <a class="btn" href="/students/new">+ Add Student</a>
+    </header>
+
+    <section class="card">
+        <div class="toolbar">
+            <input id="search" type="search" placeholder="Search students...">
+            <span class="count" th:text="${students.size()} + ' students'"></span>
+        </div>
+
+        <div class="table-wrap">
+            <table id="studentTable">
+                <thead>
+                <tr>
+                    <th>ID</th><th>Name</th><th>Email</th><th>Course</th><th>Phone</th><th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:text="${student.course}"></td>
+                    <td th:text="${student.phone}"></td>
+                    <td class="actions">
+                        <a th:href="@{/students/edit/{id}(id=${student.id})}">Edit</a>
+                        <a class="danger" th:href="@{/students/delete/{id}(id=${student.id})}"
+                           onclick="return confirm('Delete this student?')">Delete</a>
+                    </td>
+                </tr>
+                <tr th:if="${students.isEmpty()}">
+                    <td colspan="6" class="empty">No students found. Add your first student.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+<script src="/js/app.js"></script>
+</body>
+</html>
